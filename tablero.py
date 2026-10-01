@@ -6,7 +6,7 @@ from streamlit_drawable_canvas import st_canvas
 
 
 # ============================================================
-# CONFIGURACIÓN DE LA PÁGINA
+# CONFIGURACIÓN
 # ============================================================
 
 st.set_page_config(
@@ -17,60 +17,31 @@ st.set_page_config(
 
 
 # ============================================================
-# ESTILOS
+# ESTADO INICIAL
 # ============================================================
 
-st.markdown(
-    """
-    <style>
+if "canvas_version" not in st.session_state:
+    st.session_state.canvas_version = 0
 
-    .titulo {
-        font-size: 40px;
-        font-weight: 700;
-        color: #1e293b;
-        margin-bottom: 5px;
-    }
-
-    .subtitulo {
-        font-size: 17px;
-        color: #64748b;
-        margin-bottom: 25px;
-    }
-
-    .info-box {
-        background-color: #f1f5f9;
-        border-radius: 12px;
-        padding: 15px;
-        margin-top: 15px;
-        border: 1px solid #e2e8f0;
-    }
-
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+if "dibujo" not in st.session_state:
+    st.session_state.dibujo = None
 
 
 # ============================================================
 # TÍTULO
 # ============================================================
 
-st.markdown(
-    '<div class="titulo">💭 Pizarra de Pensamiento</div>',
-    unsafe_allow_html=True
-)
+st.title("💭 Pizarra de Pensamiento")
 
-st.markdown(
-    '<div class="subtitulo">'
-    'Dibuja tus ideas libremente y prepara tu boceto '
-    'para convertirlo posteriormente en una nube de pensamiento.'
-    '</div>',
-    unsafe_allow_html=True
+st.write(
+    "Dibuja tus ideas libremente. "
+    "Este tablero será la base para crear posteriormente "
+    "una nube de pensamiento con inteligencia artificial."
 )
 
 
 # ============================================================
-# BARRA LATERAL
+# SIDEBAR
 # ============================================================
 
 with st.sidebar:
@@ -78,7 +49,7 @@ with st.sidebar:
     st.header("⚙️ Propiedades del tablero")
 
     # --------------------------------------------------------
-    # NOMBRE DEL TABLERO
+    # NOMBRE
     # --------------------------------------------------------
 
     st.subheader("📝 Proyecto")
@@ -112,8 +83,8 @@ with st.sidebar:
         step=50
     )
 
-    st.caption(
-        f"Tamaño actual: {canvas_width} × {canvas_height}px"
+    st.write(
+        f"📏 {canvas_width} × {canvas_height}px"
     )
 
     st.divider()
@@ -125,7 +96,7 @@ with st.sidebar:
     st.subheader("🖌️ Herramienta")
 
     drawing_mode = st.selectbox(
-        "Selecciona una herramienta",
+        "Selecciona",
         [
             "freedraw",
             "line",
@@ -154,19 +125,19 @@ with st.sidebar:
     # --------------------------------------------------------
 
     stroke_width = st.slider(
-        "Grosor del trazo",
+        "Grosor",
         min_value=1,
         max_value=30,
         value=5
     )
 
     # --------------------------------------------------------
-    # COLOR DEL TRAZO
+    # COLOR DEL LÁPIZ
     # --------------------------------------------------------
 
     stroke_color = st.color_picker(
         "🎨 Color del trazo",
-        value="#000000"
+        "#000000"
     )
 
     # --------------------------------------------------------
@@ -175,40 +146,19 @@ with st.sidebar:
 
     background_color = st.color_picker(
         "🖼️ Color del fondo",
-        value="#FFFFFF"
+        "#FFFFFF"
     )
 
     st.divider()
 
-    # --------------------------------------------------------
-    # INFORMACIÓN
-    # --------------------------------------------------------
-
-    st.subheader("💡 Cómo utilizarlo")
-
-    st.write(
-        "1. Selecciona el tamaño del tablero."
-    )
-
-    st.write(
-        "2. Selecciona el color del fondo."
-    )
-
-    st.write(
-        "3. Selecciona el color y grosor del lápiz."
-    )
-
-    st.write(
-        "4. Dibuja tus ideas."
-    )
-
-    st.write(
-        "5. Descarga tu dibujo o conviértelo en una nube."
+    st.info(
+        "💡 Puedes utilizar círculos, líneas y dibujos "
+        "para representar las relaciones entre tus ideas."
     )
 
 
 # ============================================================
-# TÍTULO DEL PROYECTO
+# TÍTULO DEL TABLERO
 # ============================================================
 
 st.subheader(
@@ -217,7 +167,16 @@ st.subheader(
 
 
 # ============================================================
-# TABLERO
+# IDENTIFICADOR DEL CANVAS
+# ============================================================
+
+canvas_key = (
+    f"canvas_{st.session_state.canvas_version}"
+)
+
+
+# ============================================================
+# CANVAS
 # ============================================================
 
 canvas_result = st_canvas(
@@ -236,35 +195,9 @@ canvas_result = st_canvas(
 
     drawing_mode=drawing_mode,
 
-    key="canvas_principal"
+    key=canvas_key
 
 )
-
-
-# ============================================================
-# INFORMACIÓN DEL TABLERO
-# ============================================================
-
-if canvas_result.image_data is not None:
-
-    st.markdown(
-        f"""
-        <div class="info-box">
-
-        <strong>💭 Tablero activo</strong><br><br>
-
-        📐 Tamaño: {canvas_width} × {canvas_height}px<br>
-
-        🖌️ Herramienta: {drawing_mode}<br>
-
-        📏 Grosor: {stroke_width}px<br>
-
-        🎨 Color: {stroke_color}
-
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
 
 
 # ============================================================
@@ -277,15 +210,113 @@ col1, col2, col3 = st.columns(3)
 
 
 # ============================================================
-# DESCARGAR DIBUJO
+# BOTÓN LIMPIAR
 # ============================================================
 
 with col1:
 
-    if canvas_result.image_data is not None:
+    limpiar = st.button(
+        "🗑️ Limpiar",
+        use_container_width=True
+    )
+
+
+# ============================================================
+# BOTÓN CREAR NUBE
+# ============================================================
+
+with col2:
+
+    crear_nube = st.button(
+        "🧠 Crear nube",
+        type="primary",
+        use_container_width=True
+    )
+
+
+# ============================================================
+# INFORMACIÓN
+# ============================================================
+
+with col3:
+
+    st.metric(
+        "📐 Tamaño",
+        f"{canvas_width} × {canvas_height}"
+    )
+
+
+# ============================================================
+# LIMPIAR CANVAS
+# ============================================================
+
+if limpiar:
+
+    st.session_state.canvas_version += 1
+
+    st.session_state.dibujo = None
+
+    st.rerun()
+
+
+# ============================================================
+# OBTENER IMAGEN DE FORMA SEGURA
+# ============================================================
+
+imagen_canvas = None
+
+try:
+
+    imagen_canvas = canvas_result.image_data
+
+except RuntimeError:
+
+    imagen_canvas = None
+
+
+# ============================================================
+# CREAR NUBE
+# ============================================================
+
+if crear_nube:
+
+    if imagen_canvas is None:
+
+        st.warning(
+            "⚠️ Primero dibuja algo en el tablero."
+        )
+
+    else:
+
+        # Guardamos el dibujo
+        st.session_state.dibujo = imagen_canvas
+
+        st.success(
+            "✅ Dibujo guardado correctamente."
+        )
+
+        st.info(
+            "🧠 El siguiente paso será enviar este dibujo "
+            "a la inteligencia artificial para identificar "
+            "las ideas y construir automáticamente "
+            "la nube de pensamiento."
+        )
+
+
+# ============================================================
+# DESCARGAR DIBUJO
+# ============================================================
+
+if imagen_canvas is not None:
+
+    st.divider()
+
+    st.subheader("💾 Guardar dibujo")
+
+    try:
 
         imagen = Image.fromarray(
-            canvas_result.image_data.astype("uint8")
+            imagen_canvas.astype("uint8")
         )
 
         buffer = io.BytesIO()
@@ -296,85 +327,16 @@ with col1:
         )
 
         st.download_button(
-            label="⬇️ Descargar dibujo",
+            label="⬇️ Descargar como PNG",
             data=buffer.getvalue(),
-            file_name="mi_dibujo.png",
-            mime="image/png",
-            use_container_width=True
+            file_name=f"{project_name}.png",
+            mime="image/png"
         )
 
-    else:
-
-        st.button(
-            "⬇️ Descargar dibujo",
-            disabled=True,
-            use_container_width=True
-        )
-
-
-# ============================================================
-# LIMPIAR
-# ============================================================
-
-with col2:
-
-    limpiar = st.button(
-        "🗑️ Limpiar tablero",
-        use_container_width=True
-    )
-
-
-# ============================================================
-# CONVERTIR EN NUBE
-# ============================================================
-
-with col3:
-
-    convertir = st.button(
-        "🧠 Crear nube",
-        type="primary",
-        use_container_width=True
-    )
-
-
-# ============================================================
-# LIMPIAR TABLERO
-# ============================================================
-
-if limpiar:
-
-    st.session_state["limpiar_canvas"] = True
-
-    st.rerun()
-
-
-# ============================================================
-# CREAR NUBE
-# ============================================================
-
-if convertir:
-
-    if canvas_result.image_data is None:
+    except Exception as error:
 
         st.warning(
-            "⚠️ Primero debes dibujar algo."
-        )
-
-    else:
-
-        st.session_state["dibujo"] = (
-            canvas_result.image_data
-        )
-
-        st.success(
-            "✅ Tu dibujo está preparado para convertirse "
-            "en una nube de pensamiento."
-        )
-
-        st.info(
-            "🧠 Próximamente podremos analizar las palabras, "
-            "formas y conexiones de tu dibujo para generar "
-            "automáticamente la nube de pensamiento."
+            f"No fue posible preparar la imagen: {error}"
         )
 
 
@@ -382,10 +344,25 @@ if convertir:
 # ESTADO
 # ============================================================
 
+if st.session_state.dibujo is not None:
+
+    st.divider()
+
+    st.success(
+        "💭 Tu dibujo está listo para ser convertido "
+        "en una nube de pensamiento."
+    )
+
+
+# ============================================================
+# PIE DE PÁGINA
+# ============================================================
+
 st.divider()
 
 st.caption(
-    "💭 Tablero Inteligente | "
-    "Pizarra personalizable"
+    "💭 Pizarra de Pensamiento • "
+    "Proyecto de inteligencia artificial"
 )
+
 
