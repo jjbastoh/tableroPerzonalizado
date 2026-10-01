@@ -5,11 +5,11 @@ import io
 
 
 # ============================================================
-# CONFIGURACIÓN
+# CONFIGURACIÓN DE LA PÁGINA
 # ============================================================
 
 st.set_page_config(
-    page_title="Tablero de Dibujo",
+    page_title="Mi Tablero de Dibujo",
     page_icon="🎨",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -17,239 +17,261 @@ st.set_page_config(
 
 
 # ============================================================
-# CSS PERSONALIZADO
+# COLORES
 # ============================================================
 
-st.markdown("""
-<style>
+COLOR_FONDO = "#EAF6F8"
+COLOR_CELESTE = "#9DD9E8"
+COLOR_CELESTE_OSCURO = "#5FAFC2"
+COLOR_BEIGE = "#F3E7D3"
+COLOR_CREMA = "#FFFDF8"
+COLOR_TEXTO = "#40545A"
+COLOR_BORDE = "#C9DDE0"
+COLOR_TRAZO = "#5FAFC2"
 
-    /* ========================================================
-       FONDO GENERAL
-       ======================================================== */
 
-    .stApp {
-        background:
-            radial-gradient(
-                circle at top left,
-                #334d3f 0%,
-                #1f3028 35%,
-                #17231e 70%,
-                #101613 100%
-            );
-        color: #f4f1e8;
-    }
+# ============================================================
+# CSS
+# ============================================================
 
+st.markdown(
+    f"""
+    <style>
 
-    /* ========================================================
-       SIDEBAR
-       ======================================================== */
+        /* ================================================
+           FONDO GENERAL
+           ================================================ */
 
-    section[data-testid="stSidebar"] {
-        background:
-            linear-gradient(
-                180deg,
-                #17231e,
-                #1f3028,
-                #263d31
-            );
+        .stApp {{
+            background:
+                linear-gradient(
+                    135deg,
+                    {COLOR_FONDO} 0%,
+                    {COLOR_BEIGE} 50%,
+                    #F8F5EE 100%
+                );
 
-        border-right: 1px solid rgba(255,255,255,0.12);
-    }
+            color: {COLOR_TEXTO};
+        }}
 
-    section[data-testid="stSidebar"] h2,
-    section[data-testid="stSidebar"] h3 {
-        color: #f4f1e8;
-    }
 
+        /* ================================================
+           SIDEBAR
+           ================================================ */
 
-    /* ========================================================
-       TÍTULO
-       ======================================================== */
+        section[data-testid="stSidebar"] {{
+            background:
+                linear-gradient(
+                    180deg,
+                    #DDF2F5 0%,
+                    #EAF6F8 45%,
+                    #F3E7D3 100%
+                );
 
-    .titulo {
-        text-align: center;
+            border-right:
+                1px solid {COLOR_BORDE};
+        }}
 
-        font-size: 3rem;
 
-        font-weight: 800;
+        section[data-testid="stSidebar"] h2,
+        section[data-testid="stSidebar"] h3 {{
+            color: {COLOR_TEXTO};
+        }}
 
-        margin-top: 10px;
 
-        margin-bottom: 5px;
+        /* ================================================
+           TÍTULO
+           ================================================ */
 
-        background: linear-gradient(
-            90deg,
-            #a7c957,
-            #6a994e,
-            #b5c99a
-        );
+        .titulo {{
+            text-align: center;
 
-        -webkit-background-clip: text;
+            font-size: 3rem;
 
-        -webkit-text-fill-color: transparent;
-    }
+            font-weight: 800;
 
+            margin-top: 10px;
 
-    /* ========================================================
-       SUBTÍTULO
-       ======================================================== */
+            margin-bottom: 5px;
 
-    .subtitulo {
-        text-align: center;
+            color: {COLOR_CELESTE_OSCURO};
+        }}
 
-        color: #d8dfd2;
 
-        font-size: 1.1rem;
+        /* ================================================
+           SUBTÍTULO
+           ================================================ */
 
-        margin-bottom: 30px;
-    }
+        .subtitulo {{
+            text-align: center;
 
+            color: #68777A;
 
-    /* ========================================================
-       TARJETA DEL CANVAS
-       ======================================================== */
+            font-size: 1.1rem;
 
-    .canvas-card {
-        background: rgba(244, 241, 232, 0.08);
+            margin-bottom: 30px;
+        }}
 
-        padding: 25px;
 
-        border-radius: 25px;
+        /* ================================================
+           TARJETA DEL TABLERO
+           ================================================ */
 
-        border: 1px solid rgba(255,255,255,0.14);
+        .canvas-card {{
+            background:
+                rgba(255, 253, 248, 0.88);
 
-        box-shadow:
-            0 20px 50px rgba(0,0,0,0.45);
+            padding: 25px;
 
-        backdrop-filter: blur(12px);
+            border-radius: 24px;
 
-        margin: auto;
-    }
+            border:
+                1px solid {COLOR_BORDE};
 
+            box-shadow:
+                0 15px 40px rgba(80, 110, 115, 0.16);
 
-    /* ========================================================
-       CAJA DE INFORMACIÓN
-       ======================================================== */
+            margin: auto;
+        }}
 
-    .info-box {
-        background: rgba(106, 153, 78, 0.16);
 
-        border-left: 4px solid #a7c957;
+        /* ================================================
+           CAJA DE INFORMACIÓN
+           ================================================ */
 
-        padding: 15px;
+        .info-box {{
+            background:
+                rgba(157, 217, 232, 0.28);
 
-        border-radius: 10px;
+            border-left:
+                5px solid {COLOR_CELESTE_OSCURO};
 
-        color: #e8eee3;
+            padding: 16px;
 
-        margin-bottom: 20px;
-    }
+            border-radius: 12px;
 
+            color: {COLOR_TEXTO};
 
-    /* ========================================================
-       SEPARADORES
-       ======================================================== */
+            margin-bottom: 20px;
+        }}
 
-    hr {
-        border-color: rgba(255,255,255,0.14);
-    }
 
+        /* ================================================
+           TEXTO GENERAL
+           ================================================ */
 
-    /* ========================================================
-       LABELS
-       ======================================================== */
+        p,
+        span,
+        div {{
+            color: inherit;
+        }}
 
-    label {
-        color: #e8eee3 !important;
 
-        font-weight: 500 !important;
-    }
+        /* ================================================
+           LABELS
+           ================================================ */
 
+        label {{
+            color: {COLOR_TEXTO} !important;
 
-    /* ========================================================
-       SELECTBOX
-       ======================================================== */
+            font-weight: 600 !important;
+        }}
 
-    div[data-baseweb="select"] > div {
-        background-color: rgba(244,241,232,0.08);
 
-        border-radius: 10px;
+        /* ================================================
+           SELECTBOX
+           ================================================ */
 
-        border: 1px solid rgba(255,255,255,0.14);
-    }
+        div[data-baseweb="select"] > div {{
+            background-color:
+                rgba(255, 253, 248, 0.85);
 
+            border-radius: 10px;
 
-    /* ========================================================
-       COLOR PICKER
-       ======================================================== */
+            border:
+                1px solid {COLOR_BORDE};
+        }}
 
-    div[data-testid="stColorPicker"] {
-        margin-bottom: 10px;
-    }
 
+        /* ================================================
+           SLIDERS
+           ================================================ */
 
-    /* ========================================================
-       BOTONES
-       ======================================================== */
+        div[data-baseweb="slider"] {{
+            margin-bottom: 12px;
+        }}
 
-    .stButton > button,
-    .stDownloadButton > button {
 
-        width: 100%;
+        /* ================================================
+           BOTONES
+           ================================================ */
 
-        border-radius: 12px;
+        .stButton > button,
+        .stDownloadButton > button {{
 
-        font-weight: 600;
+            width: 100%;
 
-        border: 1px solid #6a994e;
+            border-radius: 12px;
 
-        background-color: #386641;
+            font-weight: 700;
 
-        color: #ffffff;
+            background-color:
+                {COLOR_CELESTE_OSCURO};
 
-        transition: all 0.2s ease;
-    }
+            color: white;
 
+            border:
+                1px solid {COLOR_CELESTE_OSCURO};
 
-    .stButton > button:hover,
-    .stDownloadButton > button:hover {
+            transition: 0.2s;
+        }}
 
-        background-color: #6a994e;
 
-        border-color: #a7c957;
+        .stButton > button:hover,
+        .stDownloadButton > button:hover {{
 
-        color: #ffffff;
+            background-color:
+                #4C9EAF;
 
-        transform: translateY(-1px);
-    }
+            color: white;
 
+            border-color:
+                #4C9EAF;
+        }}
 
-    /* ========================================================
-       SLIDERS
-       ======================================================== */
 
-    div[data-baseweb="slider"] {
+        /* ================================================
+           EXPANDER
+           ================================================ */
 
-        margin-bottom: 10px;
-    }
+        div[data-testid="stExpander"] {{
 
+            background:
+                rgba(255, 253, 248, 0.75);
 
-    /* ========================================================
-       EXPANDER
-       ======================================================== */
+            border:
+                1px solid {COLOR_BORDE};
 
-    div[data-testid="stExpander"] {
+            border-radius: 12px;
+        }}
 
-        background: rgba(244,241,232,0.06);
 
-        border: 1px solid rgba(255,255,255,0.12);
+        /* ================================================
+           ALERTA INFO
+           ================================================ */
 
-        border-radius: 12px;
-    }
+        div[data-testid="stAlert"] {{
 
+            background:
+                rgba(243, 231, 211, 0.85);
 
-</style>
-""", unsafe_allow_html=True)
+            border-radius: 12px;
+        }}
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
@@ -270,7 +292,7 @@ st.markdown(
 
 
 # ============================================================
-# ESTADO
+# ESTADO DEL CANVAS
 # ============================================================
 
 if "canvas_version" not in st.session_state:
@@ -333,21 +355,13 @@ with st.sidebar:
         ),
 
         format_func=lambda x: {
-
             "freedraw": "✏️ Dibujo libre",
-
             "line": "📏 Línea",
-
             "rect": "⬜ Rectángulo",
-
             "circle": "⭕ Círculo",
-
             "transform": "🔄 Transformar",
-
             "polygon": "🔷 Polígono",
-
             "point": "📍 Punto"
-
         }[x]
     )
 
@@ -372,13 +386,13 @@ with st.sidebar:
 
     stroke_color = st.color_picker(
         "Color del trazo",
-        "#A7C957"
+        COLOR_TRAZO
     )
 
 
     bg_color = st.color_picker(
         "Color de fondo",
-        "#F4F1E8"
+        COLOR_CREMA
     )
 
 
@@ -386,7 +400,7 @@ with st.sidebar:
 
 
     # ========================================================
-    # LIMPIAR
+    # BOTÓN LIMPIAR
     # ========================================================
 
     if st.button(
@@ -413,23 +427,26 @@ with st.sidebar:
 
 
 # ============================================================
-# ÁREA DE DIBUJO
+# INFORMACIÓN DEL TABLERO
 # ============================================================
 
-st.markdown("""
-<div class="info-box">
+st.markdown(
+    """
+    <div class="info-box">
 
-    🖌️ <b>Área de dibujo</b><br>
+        🖌️ <strong>Área de dibujo</strong><br>
 
-    Selecciona una herramienta desde el panel izquierdo
-    y comienza a crear.
+        Selecciona una herramienta desde el panel izquierdo
+        y comienza a crear.
 
-</div>
-""", unsafe_allow_html=True)
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
-# CANVAS
+# CONTENEDOR DEL CANVAS
 # ============================================================
 
 st.markdown(
@@ -438,9 +455,13 @@ st.markdown(
 )
 
 
+# ============================================================
+# CANVAS
+# ============================================================
+
 canvas_result = st_canvas(
 
-    fill_color="rgba(167, 201, 87, 0.25)",
+    fill_color="rgba(157, 217, 232, 0.25)",
 
     stroke_width=stroke_width,
 
@@ -495,8 +516,7 @@ if image_data is not None:
     st.markdown("### ✨ Tu creación")
 
     st.caption(
-        "Puedes modificar el tamaño, colores y herramienta "
-        "desde el panel lateral."
+        "Aquí puedes ver una vista previa de tu dibujo."
     )
 
 
@@ -508,7 +528,7 @@ if image_data is not None:
 
 
         # ====================================================
-        # MOSTRAR IMAGEN
+        # MOSTRAR DIBUJO
         # ====================================================
 
         st.image(
@@ -519,7 +539,7 @@ if image_data is not None:
 
 
         # ====================================================
-        # PREPARAR PNG
+        # CREAR PNG
         # ====================================================
 
         png_buffer = io.BytesIO()
@@ -533,7 +553,7 @@ if image_data is not None:
 
 
         # ====================================================
-        # DESCARGAR
+        # BOTÓN DESCARGA
         # ====================================================
 
         st.download_button(
@@ -554,7 +574,7 @@ if image_data is not None:
     except Exception:
 
         st.warning(
-            "No se pudo generar la vista previa."
+            "No se pudo generar la vista previa del dibujo."
         )
 
 
@@ -570,7 +590,7 @@ with st.expander("ℹ️ Información"):
     )
 
     st.write(
-        "Puedes seleccionar dibujo libre, líneas, rectángulos, "
+        "Puedes utilizar dibujo libre, líneas, rectángulos, "
         "círculos, polígonos, puntos y transformación."
     )
 
@@ -578,5 +598,4 @@ with st.expander("ℹ️ Información"):
         "También puedes cambiar el color, el grosor del trazo "
         "y el color de fondo."
     )
-
 
