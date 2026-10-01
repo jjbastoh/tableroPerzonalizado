@@ -1,1 +1,2 @@
-requ
+streamlit
+streamlit-drawable-canvas
