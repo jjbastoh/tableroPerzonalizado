@@ -5,7 +5,7 @@ import io
 
 
 # ============================================================
-# CONFIGURACIÓN DE LA PÁGINA
+# CONFIGURACIÓN
 # ============================================================
 
 st.set_page_config(
@@ -31,242 +31,90 @@ COLOR_TRAZO = "#5FAFC2"
 
 
 # ============================================================
-# CSS
+# DISEÑO
 # ============================================================
 
 st.markdown(
     f"""
     <style>
 
-        /* ================================================
-           FONDO GENERAL
-           ================================================ */
-
-        .stApp {{
-            background:
-                linear-gradient(
-                    135deg,
-                    {COLOR_FONDO} 0%,
-                    {COLOR_BEIGE} 50%,
-                    #F8F5EE 100%
-                );
-
-            color: {COLOR_TEXTO};
-        }}
-
-
-        /* ================================================
-           SIDEBAR
-           ================================================ */
-
-        section[data-testid="stSidebar"] {{
-            background:
-                linear-gradient(
-                    180deg,
-                    #DDF2F5 0%,
-                    #EAF6F8 45%,
-                    #F3E7D3 100%
-                );
-
-            border-right:
-                1px solid {COLOR_BORDE};
-        }}
-
-
-        section[data-testid="stSidebar"] h2,
-        section[data-testid="stSidebar"] h3 {{
-            color: {COLOR_TEXTO};
-        }}
-
-
-        /* ================================================
-           TÍTULO
-           ================================================ */
-
-        .titulo {{
-            text-align: center;
-
-            font-size: 3rem;
-
-            font-weight: 800;
-
-            margin-top: 10px;
-
-            margin-bottom: 5px;
-
-            color: {COLOR_CELESTE_OSCURO};
-        }}
-
-
-        /* ================================================
-           SUBTÍTULO
-           ================================================ */
-
-        .subtitulo {{
-            text-align: center;
-
-            color: #68777A;
-
-            font-size: 1.1rem;
-
-            margin-bottom: 30px;
-        }}
-
-
-        /* ================================================
-           TARJETA DEL TABLERO
-           ================================================ */
-
-        .canvas-card {{
-            background:
-                rgba(255, 253, 248, 0.88);
-
-            padding: 25px;
-
-            border-radius: 24px;
-
-            border:
-                1px solid {COLOR_BORDE};
-
-            box-shadow:
-                0 15px 40px rgba(80, 110, 115, 0.16);
-
-            margin: auto;
-        }}
-
-
-        /* ================================================
-           CAJA DE INFORMACIÓN
-           ================================================ */
-
-        .info-box {{
-            background:
-                rgba(157, 217, 232, 0.28);
-
-            border-left:
-                5px solid {COLOR_CELESTE_OSCURO};
-
-            padding: 16px;
-
-            border-radius: 12px;
-
-            color: {COLOR_TEXTO};
-
-            margin-bottom: 20px;
-        }}
-
-
-        /* ================================================
-           TEXTO GENERAL
-           ================================================ */
-
-        p,
-        span,
-        div {{
-            color: inherit;
-        }}
-
-
-        /* ================================================
-           LABELS
-           ================================================ */
-
-        label {{
-            color: {COLOR_TEXTO} !important;
-
-            font-weight: 600 !important;
-        }}
-
-
-        /* ================================================
-           SELECTBOX
-           ================================================ */
-
-        div[data-baseweb="select"] > div {{
-            background-color:
-                rgba(255, 253, 248, 0.85);
-
-            border-radius: 10px;
-
-            border:
-                1px solid {COLOR_BORDE};
-        }}
-
-
-        /* ================================================
-           SLIDERS
-           ================================================ */
-
-        div[data-baseweb="slider"] {{
-            margin-bottom: 12px;
-        }}
-
-
-        /* ================================================
-           BOTONES
-           ================================================ */
-
-        .stButton > button,
-        .stDownloadButton > button {{
-
-            width: 100%;
-
-            border-radius: 12px;
-
-            font-weight: 700;
-
-            background-color:
-                {COLOR_CELESTE_OSCURO};
-
-            color: white;
-
-            border:
-                1px solid {COLOR_CELESTE_OSCURO};
-
-            transition: 0.2s;
-        }}
-
-
-        .stButton > button:hover,
-        .stDownloadButton > button:hover {{
-
-            background-color:
-                #4C9EAF;
-
-            color: white;
-
-            border-color:
-                #4C9EAF;
-        }}
-
-
-        /* ================================================
-           EXPANDER
-           ================================================ */
-
-        div[data-testid="stExpander"] {{
-
-            background:
-                rgba(255, 253, 248, 0.75);
-
-            border:
-                1px solid {COLOR_BORDE};
-
-            border-radius: 12px;
-        }}
-
-
-        /* ================================================
-           ALERTA INFO
-           ================================================ */
-
-        div[data-testid="stAlert"] {{
-
-            background:
-                rgba(243, 231, 211, 0.85);
-
-            border-radius: 12px;
-        }}
+    .stApp {{
+        background: linear-gradient(
+            135deg,
+            {COLOR_FONDO},
+            {COLOR_BEIGE},
+            #F8F5EE
+        );
+        color: {COLOR_TEXTO};
+    }}
+
+    section[data-testid="stSidebar"] {{
+        background: linear-gradient(
+            180deg,
+            #DDF2F5,
+            #EAF6F8,
+            #F3E7D3
+        );
+        border-right: 1px solid {COLOR_BORDE};
+    }}
+
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 {{
+        color: {COLOR_TEXTO};
+    }}
+
+    .titulo {{
+        text-align: center;
+        font-size: 3rem;
+        font-weight: 800;
+        color: {COLOR_CELESTE_OSCURO};
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }}
+
+    .subtitulo {{
+        text-align: center;
+        color: #68777A;
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }}
+
+    .canvas-card {{
+        background: rgba(255, 253, 248, 0.90);
+        padding: 25px;
+        border-radius: 24px;
+        border: 1px solid {COLOR_BORDE};
+        box-shadow: 0 15px 40px rgba(80, 110, 115, 0.16);
+        margin: auto;
+    }}
+
+    label {{
+        color: {COLOR_TEXTO} !important;
+        font-weight: 600 !important;
+    }}
+
+    div[data-baseweb="select"] > div {{
+        background-color: rgba(255, 253, 248, 0.90);
+        border-radius: 10px;
+        border: 1px solid {COLOR_BORDE};
+    }}
+
+    .stButton > button,
+    .stDownloadButton > button {{
+        width: 100%;
+        border-radius: 12px;
+        font-weight: 700;
+        background-color: {COLOR_CELESTE_OSCURO};
+        color: white;
+        border: 1px solid {COLOR_CELESTE_OSCURO};
+    }}
+
+    .stButton > button:hover,
+    .stDownloadButton > button:hover {{
+        background-color: #4C9EAF;
+        color: white;
+        border-color: #4C9EAF;
+    }}
 
     </style>
     """,
@@ -279,14 +127,16 @@ st.markdown(
 # ============================================================
 
 st.markdown(
-    '<div class="titulo">🎨 Mi Tablero de Dibujo</div>',
+    '<h1 style="text-align:center; color:#5FAFC2;">'
+    '🎨 Mi Tablero de Dibujo'
+    '</h1>',
     unsafe_allow_html=True
 )
 
 st.markdown(
-    '<div class="subtitulo">'
+    '<p style="text-align:center; color:#68777A; font-size:18px;">'
     'Crea, dibuja y experimenta con diferentes herramientas'
-    '</div>',
+    '</p>',
     unsafe_allow_html=True
 )
 
@@ -300,51 +150,48 @@ if "canvas_version" not in st.session_state:
 
 
 # ============================================================
-# SIDEBAR
+# PANEL LATERAL
 # ============================================================
 
 with st.sidebar:
 
-    st.markdown("## 🎨 Panel de Diseño")
+    st.header("🎨 Panel de Diseño")
 
-    st.markdown("---")
+    st.divider()
 
-
-    # ========================================================
+    # --------------------------------------------------------
     # DIMENSIONES
-    # ========================================================
+    # --------------------------------------------------------
 
-    st.markdown("### 📐 Dimensiones")
+    st.subheader("📐 Dimensiones")
 
     canvas_width = st.slider(
         "Ancho del tablero",
-        min_value=300,
-        max_value=700,
-        value=500,
-        step=50
+        300,
+        700,
+        500,
+        50
     )
 
     canvas_height = st.slider(
         "Alto del tablero",
-        min_value=200,
-        max_value=600,
-        value=300,
-        step=50
+        200,
+        600,
+        300,
+        50
     )
 
+    st.divider()
 
-    st.markdown("---")
-
-
-    # ========================================================
+    # --------------------------------------------------------
     # HERRAMIENTA
-    # ========================================================
+    # --------------------------------------------------------
 
-    st.markdown("### 🖌️ Herramienta")
+    st.subheader("🖌️ Herramienta")
 
     drawing_mode = st.selectbox(
         "Modo de dibujo",
-        (
+        [
             "freedraw",
             "line",
             "rect",
@@ -352,8 +199,7 @@ with st.sidebar:
             "transform",
             "polygon",
             "point"
-        ),
-
+        ],
         format_func=lambda x: {
             "freedraw": "✏️ Dibujo libre",
             "line": "📏 Línea",
@@ -365,93 +211,61 @@ with st.sidebar:
         }[x]
     )
 
+    st.divider()
 
-    st.markdown("---")
-
-
-    # ========================================================
+    # --------------------------------------------------------
     # ESTILO
-    # ========================================================
+    # --------------------------------------------------------
 
-    st.markdown("### 🎨 Estilo")
+    st.subheader("🎨 Estilo")
 
     stroke_width = st.slider(
         "Grosor del trazo",
-        min_value=1,
-        max_value=30,
-        value=5,
-        step=1
+        1,
+        30,
+        5
     )
-
 
     stroke_color = st.color_picker(
         "Color del trazo",
         COLOR_TRAZO
     )
 
-
     bg_color = st.color_picker(
         "Color de fondo",
         COLOR_CREMA
     )
 
+    st.divider()
 
-    st.markdown("---")
-
-
-    # ========================================================
-    # BOTÓN LIMPIAR
-    # ========================================================
+    # --------------------------------------------------------
+    # LIMPIAR
+    # --------------------------------------------------------
 
     if st.button(
         "🗑️ Limpiar tablero",
         use_container_width=True
     ):
-
         st.session_state.canvas_version += 1
-
         st.rerun()
 
-
-    st.markdown("---")
-
-
-    # ========================================================
-    # CONSEJO
-    # ========================================================
+    st.divider()
 
     st.info(
-        "💡 Consejo: combina diferentes colores y herramientas "
+        "💡 Combina diferentes colores y herramientas "
         "para crear diseños originales."
     )
 
 
 # ============================================================
-# INFORMACIÓN DEL TABLERO
+# ÁREA DE DIBUJO
 # ============================================================
 
-st.markdown(
-    """
-    <div class="info-box">
+st.subheader("🖌️ Área de dibujo")
 
-        🖌️ <strong>Área de dibujo</strong><br>
-
-        Selecciona una herramienta desde el panel izquierdo
-        y comienza a crear.
-
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-
-# ============================================================
-# CONTENEDOR DEL CANVAS
-# ============================================================
-
-st.markdown(
-    '<div class="canvas-card">',
-    unsafe_allow_html=True
+st.write(
+    "Selecciona una herramienta desde el panel izquierdo "
+    "y comienza a crear."
 )
 
 
@@ -459,26 +273,21 @@ st.markdown(
 # CANVAS
 # ============================================================
 
-canvas_result = st_canvas(
-
-    fill_color="rgba(157, 217, 232, 0.25)",
-
-    stroke_width=stroke_width,
-
-    stroke_color=stroke_color,
-
-    background_color=bg_color,
-
-    height=canvas_height,
-
-    width=canvas_width,
-
-    drawing_mode=drawing_mode,
-
-    key=f"drawing_canvas_{st.session_state.canvas_version}"
-
+st.markdown(
+    '<div class="canvas-card">',
+    unsafe_allow_html=True
 )
 
+canvas_result = st_canvas(
+    fill_color="rgba(157, 217, 232, 0.25)",
+    stroke_width=stroke_width,
+    stroke_color=stroke_color,
+    background_color=bg_color,
+    height=canvas_height,
+    width=canvas_width,
+    drawing_mode=drawing_mode,
+    key=f"drawing_canvas_{st.session_state.canvas_version}"
+)
 
 st.markdown(
     '</div>',
@@ -493,15 +302,10 @@ st.markdown(
 image_data = None
 
 try:
-
     image_data = canvas_result.image_data
-
 except RuntimeError:
-
     image_data = None
-
 except Exception:
-
     image_data = None
 
 
@@ -511,14 +315,13 @@ except Exception:
 
 if image_data is not None:
 
-    st.markdown("---")
+    st.divider()
 
-    st.markdown("### ✨ Tu creación")
+    st.subheader("✨ Tu creación")
 
-    st.caption(
+    st.write(
         "Aquí puedes ver una vista previa de tu dibujo."
     )
-
 
     try:
 
@@ -526,21 +329,15 @@ if image_data is not None:
             image_data.astype("uint8")
         )
 
-
-        # ====================================================
-        # MOSTRAR DIBUJO
-        # ====================================================
-
         st.image(
             image,
             caption="Vista previa de tu dibujo",
             width=canvas_width
         )
 
-
-        # ====================================================
-        # CREAR PNG
-        # ====================================================
+        # ----------------------------------------------------
+        # CREAR ARCHIVO PNG
+        # ----------------------------------------------------
 
         png_buffer = io.BytesIO()
 
@@ -551,28 +348,19 @@ if image_data is not None:
 
         png_buffer.seek(0)
 
-
-        # ====================================================
-        # BOTÓN DESCARGA
-        # ====================================================
+        # ----------------------------------------------------
+        # DESCARGAR
+        # ----------------------------------------------------
 
         st.download_button(
-
-            label="⬇️ Descargar dibujo como PNG",
-
+            "⬇️ Descargar dibujo como PNG",
             data=png_buffer.getvalue(),
-
             file_name="mi_dibujo.png",
-
             mime="image/png",
-
             use_container_width=True
-
         )
 
-
     except Exception:
-
         st.warning(
             "No se pudo generar la vista previa del dibujo."
         )
