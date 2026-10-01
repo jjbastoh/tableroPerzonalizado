@@ -422,7 +422,6 @@ with st.expander("ℹ️ Información"):
         "y el color de fondo."
     )
 
-requirements.txt
 
 
 
