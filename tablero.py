@@ -1,55 +1,8 @@
-import streamlit as st
-from streamlit_drawable_canvas import st_canvas
-from PIL import Image
-import io
-
-
-# ============================================================
-# CONFIGURACIÓN
-# ============================================================
-
-st.set_page_config(
-    page_title="Pizarra de Pensamiento",
-    page_icon="💭",
-    layout="wide"
-)
-
-
-# ============================================================
-# ESTILO
-# ============================================================
-
-st.markdown("""
-<style>
-
-    .main-title {
-        font-size: 42px;
-        font-weight: 700;
-        margin-bottom: 0px;
-    }
-
-    .subtitle {
-        color: #94a3b8;
-        font-size: 17px;
-        margin-bottom: 25px;
-    }
-
-    .info-box {
-        padding: 15px;
-        border-radius: 12px;
-        background-color: #1e293b;
-        color: white;
-        margin-top: 15px;
-    }
-
-    .tool-box {
-        padding: 10px;
-        border-radius: 10px;
-        background-color: #0f172a;
-        margin-bottom: 10px;
-    }
-
-</style>
+TypeError: This app has encountered an error. The original error message is redacted to prevent data leaks. Full error details have been recorded in the logs (if you're on Streamlit Cloud, click on 'Manage app' in the lower right of your app).
+Traceback:
+File "/mount/src/tableroperzonalizado/tablero.py", line 239, in <module>
+    canvas_result = st_canvas(
+                    ^^^^^^^^^^
 """, unsafe_allow_html=True)
 
 
