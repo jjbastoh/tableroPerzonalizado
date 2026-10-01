@@ -424,14 +424,6 @@ with st.expander("ℹ️ Información"):
 
 requirements.txt
 
-Asegúrate también de tener un requirements.txt en tu proyecto de Streamlit Cloud:
-
-streamlit
-streamlit-drawable-canvas
-Pillow
-numpy
 
 
-Después de subir ambos archivos, reinicia la aplicación.
 
-Importante: si el error continúa incluso con este código, probablemente el problema esté relacionado con la versión instalada de streamlit-drawable-canvas y no con tu if. En ese caso puedo darte una versión adaptada específicamente para Streamlit Cloud, incluyendo las versiones exactas del requirements.txt para evitar incompatibilidades.
